@@ -159,7 +159,6 @@ public class MultiBlock extends Block {
 			return new ItemStack(this,1,tile2.meta);
 		}
 		else {
-			 VoidDwellerCore.logger.fatal("NO TILE!!");
 			 return new ItemStack(this,1);
 		}
 	}
@@ -184,7 +183,6 @@ public class MultiBlock extends Block {
 		Set<Integer> keys = registeredBlock.keySet();
 		for(int meta : keys) {
 			IIcon icon = register.registerIcon("vd_core:"+registeredBlock.get(meta));
-			VoidDwellerCore.logger.fatal(icon.getIconName());
 			icons.put(meta, icon);
 		}
 	}

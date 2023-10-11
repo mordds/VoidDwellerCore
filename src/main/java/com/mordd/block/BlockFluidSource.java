@@ -45,7 +45,6 @@ public class BlockFluidSource extends Block {
 			stack = new ItemStack(this,1,meta >= 0 ? meta : 0);
 		}
 		else {
-			 VoidDwellerCore.logger.fatal("NO TILE!!");
 			 stack = new ItemStack(this,1);
 		}
 		EntityItem entityitem = new EntityItem(world, (double)x + 0.5d, (double)y + 0.5d, (double)z +0.5d, stack);
@@ -68,7 +67,6 @@ public class BlockFluidSource extends Block {
 			return new ItemStack(this,1,meta >= 0 ? meta : 0);
 		}
 		else {
-			 VoidDwellerCore.logger.fatal("NO TILE!!");
 			 return new ItemStack(this,1);
 		}
 	}

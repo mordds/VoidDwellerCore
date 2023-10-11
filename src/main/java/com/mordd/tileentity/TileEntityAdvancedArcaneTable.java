@@ -30,7 +30,6 @@ import thaumicenergistics.common.fluids.GaseousEssentia;
 
 
 public class TileEntityAdvancedArcaneTable extends TileEntity implements IFluidHandler,IInventory{
-	private int t = 0;
 	private ItemStack contents[] = new ItemStack[31];
 	private Container eventHandler;
 	public IArcaneRecipe recipe;
@@ -65,13 +64,8 @@ public class TileEntityAdvancedArcaneTable extends TileEntity implements IFluidH
 	}
 	@Override
 	public void updateEntity() {
-		t++;
 		if(contents[30] != null) {
 			for(int i = 0;i < 6;i++) {
-				if(t > 100) {
-					//VoidDwellerCore.logger.fatal("try charge wand~");
-					//t = 0
-				} 
 				chargeWand(Utils.primalAspects.get(i));
 			}
 		}
@@ -342,10 +336,6 @@ public class TileEntityAdvancedArcaneTable extends TileEntity implements IFluidH
 		if(contents[30] == null) return;
 		ItemWandCasting wand = (ItemWandCasting) contents[30].getItem();
 		int t = wand.addVis(contents[30], aspect, 1, true);
-		if(this.t > 100) {
-			VoidDwellerCore.logger.fatal(t);
-			this.t = 0;
-		}
 		this.aspectsFluid[index].amount -= t == 0 ? 128 : 0;
 	}
 	public int getCapacity() {

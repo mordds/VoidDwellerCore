@@ -16,7 +16,6 @@ public class BlockLoader {
 	public static void registerBlocks()
 	{
 		registerMultiBlocks();
-		
 		WaterSource = new BlockFluidSource();
 		GameRegistry.registerBlock(WaterSource,ItemBlockFluidSource.class,"watersource");
 		multiBlock = new MultiBlock();

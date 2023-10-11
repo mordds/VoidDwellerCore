@@ -80,7 +80,6 @@ public final class VoidDwellerCore extends gregapi.api.Abstract_Mod {
 	
 	@Override
 	public void onModPreInit2(cpw.mods.fml.common.event.FMLPreInitializationEvent event) {
-		new MultiTileEntityRegistry("vd.multitileentity");
 		
 		new ConfigLoader(event);
 		BlockLoader.registerBlocks();
