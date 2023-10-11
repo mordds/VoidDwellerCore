@@ -171,12 +171,9 @@ public class ContainerAdvancedArcaneTable extends Container{
     public boolean canTakeStack() {
     	
     	if(recipe != null) {
-        	VoidDwellerCore.logger.error(recipe.toString());
         	boolean ret = tile.hasEnoughAspect(recipe);
-        	VoidDwellerCore.logger.error(ret);
         	return ret;
     	}
-    	VoidDwellerCore.logger.error("NULL RECIPE");
     	return false;
     }
     @SideOnly(Side.CLIENT)

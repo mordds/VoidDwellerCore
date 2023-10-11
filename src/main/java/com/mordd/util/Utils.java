@@ -20,16 +20,16 @@ public class Utils {
 	public static List<Aspect> primalAspects;
 	public static Map<Integer,ItemStack> rc_recipe = new HashMap<Integer,ItemStack>();
 	static{
-		rc_recipe.put(201,OP.cobblestone.mat(MT.STONES.Marble,1));
-		rc_recipe.put(202,OP.cobblestone.mat(MT.STONES.Limestone,1));
-		rc_recipe.put(203,OP.cobblestone.mat(MT.STONES.Basalt,1));
-		rc_recipe.put(204,OP.cobblestone.mat(MT.STONES.Kimberlite,1));
-		rc_recipe.put(205,OP.cobblestone.mat(MT.STONES.Diorite,1));
-		rc_recipe.put(206,OP.cobblestone.mat(MT.STONES.Komatiite,1));
-		rc_recipe.put(207,OP.cobblestone.mat(MT.STONES.Quartzite,1));
-		rc_recipe.put(210,OP.cobblestone.mat(MT.STONES.Andesite,1));
-		rc_recipe.put(212,OP.cobblestone.mat(MT.STONES.GraniteBlack,1));
-		rc_recipe.put(213,OP.cobblestone.mat(MT.STONES.GraniteRed,1));
+		rc_recipe.put(201,new ItemStack(BlocksGT.Marble,1,1));
+		rc_recipe.put(202,new ItemStack(BlocksGT.Limestone,1,1));
+		rc_recipe.put(203,new ItemStack(BlocksGT.Basalt,1,1));
+		rc_recipe.put(204,new ItemStack(BlocksGT.Kimberlite,1,1));
+		rc_recipe.put(205,new ItemStack(BlocksGT.Diorite,1,1));
+		rc_recipe.put(206,new ItemStack(BlocksGT.Komatiite,1,1));
+		rc_recipe.put(207,new ItemStack(BlocksGT.Quartzite,1,1));
+		rc_recipe.put(210,new ItemStack(BlocksGT.Andesite,1,1));
+		rc_recipe.put(212,new ItemStack(BlocksGT.GraniteBlack,1,1));
+		rc_recipe.put(213,new ItemStack(BlocksGT.GraniteRed,1,1));
 		rc_recipe.put(208,new ItemStack(BlocksGT.RockOres,1,2));
 		rc_recipe.put(209,new ItemStack(BlocksGT.RockOres,1,4));
 		rc_recipe.put(211,new ItemStack(BlocksGT.RockOres,1,0));
