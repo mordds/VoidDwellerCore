@@ -12,6 +12,7 @@ import com.mordd.util.Utils;
 
 import akka.event.EventBus;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
 import net.minecraft.block.Block;
@@ -27,6 +28,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.IIcon;
 import net.minecraft.util.MovingObjectPosition;
@@ -34,8 +36,11 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent.Action;
 import net.minecraftforge.event.world.BlockEvent;
 
+import static gregapi.data.CS.*;
 
 public class MultiBlock extends Block {
 	public class BlockInfo{
@@ -78,6 +83,8 @@ public class MultiBlock extends Block {
 	public boolean onBlockActivated(World world, int x, int y, int z, EntityPlayer player, int par6, float par7, float par8, float par9) {
 		int meta = this.getActualMeta(world, x, y, z);
 		
+		
+		
 		if(meta == 0) {
 			Block block = world.getBlock(x, y - 1, z);
 			ItemStack generate = null;
@@ -117,7 +124,50 @@ public class MultiBlock extends Block {
 		return "pickaxe";
 	} 
 	@SubscribeEvent
+	public void onInteract(PlayerInteractEvent event) {
+	
+		ItemStack heldItem = event.entityPlayer.getHeldItem();
+		int aSide = event.face;
+		Item tool = GameRegistry.findItem("gregtech", "gt.metatool.01");
+		if(heldItem.getItem() == tool && heldItem.getItemDamage() == 74) {
+			VoidDwellerCore.logger.fatal("Event Caught!");
+			if(heldItem.hasTagCompound()) {
+				NBTTagCompound nbt = heldItem.getTagCompound();
+				if(event.action == Action.RIGHT_CLICK_BLOCK && event.world.getBlock(event.x, event.y, event.z) == this) {
+						ItemStack stack = this.getPickBlock(null, event.world, event.x, event.y, event.z);
+						if(!event.entityPlayer.inventory.hasItemStack(stack)) return;
+						for(ItemStack s : event.entityPlayer.inventory.mainInventory) {
+							if(Utils.isSameItem(s, stack)) {
+								stack = s;
+								break;
+							}
+						}
+						
+						for (int tX = -1; tX <= 1; tX++)
+						for (int tZ = -1; tZ <= 1; tZ++)
+						for (int tY = -1; tY <= 2; tY++) {
+							if (!event.entityPlayer.canPlayerEdit(event.x+tX            , event.y+tY            , event.z+tZ            , aSide, stack)) continue;
+							if (!event.entityPlayer.canPlayerEdit(event.x+tX+OFFX[aSide], event.y+tY+OFFY[aSide], event.z+tZ+OFFZ[aSide], aSide, stack)) continue;
+							
+
+							if (stack.tryPlaceItemIntoWorld(event.entityPlayer, event.world, event.x+tX, event.y+tY, event.z+tZ, aSide, 0.0f, 0.0f, 0.0f)) {
+								stack.stackSize--;
+								int used = nbt.getCompoundTag("GT.ToolStats").getInteger("k");
+								used++;
+								nbt.getCompoundTag("GT.ToolStats").setInteger("k", used);
+							}
+							
+							
+						}
+				}
+			}
+			
+		}
+	}
+	@SubscribeEvent
 	public void getHarvestSpeed(PlayerEvent.BreakSpeed event) {
+		
+		
 		int meta = this.getActualMeta(event.entityPlayer.worldObj, event.x, event.y, event.z);
 		if(!hardness.containsKey(meta)) return;
 		float tHardness = hardness.get(meta);
