@@ -15,6 +15,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.registry.GameRegistry;
 import cpw.mods.fml.relauncher.Side;
 import cpw.mods.fml.relauncher.SideOnly;
+import gregapi.item.multiitem.MultiItemTool;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.client.Minecraft;
@@ -125,17 +126,21 @@ public class MultiBlock extends Block {
 	} 
 	@SubscribeEvent
 	public void onInteract(PlayerInteractEvent event) {
-	
 		ItemStack heldItem = event.entityPlayer.getHeldItem();
+		//if(event.world.isRemote) return;
+		if(heldItem == null) return;
 		int aSide = event.face;
 		Item tool = GameRegistry.findItem("gregtech", "gt.metatool.01");
 		if(heldItem.getItem() == tool && heldItem.getItemDamage() == 74) {
-			VoidDwellerCore.logger.fatal("Event Caught!");
+			
 			if(heldItem.hasTagCompound()) {
+				
 				NBTTagCompound nbt = heldItem.getTagCompound();
 				if(event.action == Action.RIGHT_CLICK_BLOCK && event.world.getBlock(event.x, event.y, event.z) == this) {
+					//VoidDwellerCore.logger.fatal("Event Caught!");
 						ItemStack stack = this.getPickBlock(null, event.world, event.x, event.y, event.z);
 						if(!event.entityPlayer.inventory.hasItemStack(stack)) return;
+						
 						for(ItemStack s : event.entityPlayer.inventory.mainInventory) {
 							if(Utils.isSameItem(s, stack)) {
 								stack = s;
@@ -143,18 +148,40 @@ public class MultiBlock extends Block {
 							}
 						}
 						
-						for (int tX = -1; tX <= 1; tX++)
-						for (int tZ = -1; tZ <= 1; tZ++)
-						for (int tY = -1; tY <= 2; tY++) {
+						int tDist = (MultiItemTool.getPrimaryMaterial(heldItem).mToolQuality+1);
+						for (int tX = (SIDES_AXIS_X[aSide]?0:-tDist); tX <= (SIDES_AXIS_X[aSide]?0:tDist); tX++)
+						for (int tY = (SIDES_AXIS_Y[aSide]?0:-tDist); tY <= (SIDES_AXIS_Y[aSide]?0:tDist); tY++)
+						for (int tZ = (SIDES_AXIS_Z[aSide]?0:-tDist); tZ <= (SIDES_AXIS_Z[aSide]?0:tDist); tZ++) {
 							if (!event.entityPlayer.canPlayerEdit(event.x+tX            , event.y+tY            , event.z+tZ            , aSide, stack)) continue;
 							if (!event.entityPlayer.canPlayerEdit(event.x+tX+OFFX[aSide], event.y+tY+OFFY[aSide], event.z+tZ+OFFZ[aSide], aSide, stack)) continue;
-							
-
+							if(stack == null) {
+								for(ItemStack s : event.entityPlayer.inventory.mainInventory) {
+									if(Utils.isSameItem(s, stack)) {
+										stack = s;
+										break;
+									}
+								}
+							}
+							if(stack == null) return;
 							if (stack.tryPlaceItemIntoWorld(event.entityPlayer, event.world, event.x+tX, event.y+tY, event.z+tZ, aSide, 0.0f, 0.0f, 0.0f)) {
-								stack.stackSize--;
+								//VoidDwellerCore.logger.fatal("Placed at " + tX+event.x + " " + tY+event.y + " " + tZ+event.z);
+								//stack.stackSize--;
+								if(stack.stackSize < 0) stack.stackSize = 0;
 								int used = nbt.getCompoundTag("GT.ToolStats").getInteger("k");
 								used++;
 								nbt.getCompoundTag("GT.ToolStats").setInteger("k", used);
+								if(stack.stackSize == 0) {
+									for (int i = 0; i < (event.entityPlayer).inventory.mainInventory.length; i++) {
+										if (event.entityPlayer.inventory.mainInventory[i] == stack) {
+											event.entityPlayer.inventory.mainInventory[i] = null;
+											break;
+										}
+									}
+									
+									break;
+								}
+								
+								
 							}
 							
 							
