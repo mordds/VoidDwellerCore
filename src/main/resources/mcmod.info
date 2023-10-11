@@ -1,0 +1,16 @@
+[
+{
+  "modid": "zexamplemod",
+  "name": "Example Mod",
+  "description": "Example NEI Compact Mod",
+  "version": "${version}",
+  "mcversion": "${mcversion}",
+  "url": "",
+  "updateUrl": "",
+  "authorList": ["mordd"],
+  "credits": "Forge",
+  "logoFile": "",
+  "screenshots": [],
+  "dependencies": []
+}
+]
