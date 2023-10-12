@@ -152,6 +152,7 @@ public class MultiBlock extends Block {
 						for (int tX = (SIDES_AXIS_X[aSide]?0:-tDist); tX <= (SIDES_AXIS_X[aSide]?0:tDist); tX++)
 						for (int tY = (SIDES_AXIS_Y[aSide]?0:-tDist); tY <= (SIDES_AXIS_Y[aSide]?0:tDist); tY++)
 						for (int tZ = (SIDES_AXIS_Z[aSide]?0:-tDist); tZ <= (SIDES_AXIS_Z[aSide]?0:tDist); tZ++) {
+							if(this.getActualMeta(event.world, event.x+tX, event.y+tY, event.z+tZ) !=  stack.getItemDamage() || event.world.getBlock(event.x+tX, event.y+tY, event.z+tZ) != this) continue;
 							if (!event.entityPlayer.canPlayerEdit(event.x+tX            , event.y+tY            , event.z+tZ            , aSide, stack)) continue;
 							if (!event.entityPlayer.canPlayerEdit(event.x+tX+OFFX[aSide], event.y+tY+OFFY[aSide], event.z+tZ+OFFZ[aSide], aSide, stack)) continue;
 							if(stack == null) {

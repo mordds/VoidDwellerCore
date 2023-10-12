@@ -49,7 +49,7 @@ public final class VoidDwellerCore extends gregapi.api.Abstract_Mod {
 	/** This is your Mods Name */
 	public static final String MOD_NAME = "Void Dweller Core"; // <-- TODO: you need to change this to the Name of your own Mod, and then remove this Comment after you did that.
 	/** This is your Mods Version */
-	public static final String VERSION = "0.2.0_0116";
+	public static final String VERSION = "0.2.0_0117";
 	/** Contains a ModData Object for ID and Name. Doesn't have to be changed. */
 	public static gregapi.code.ModData MOD_DATA = new gregapi.code.ModData(MOD_ID, MOD_NAME);
 	
