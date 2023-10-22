@@ -28,8 +28,8 @@ public class Utils {
 		rc_recipe.put(206,new ItemStack(BlocksGT.Komatiite,1,1));
 		rc_recipe.put(207,new ItemStack(BlocksGT.Quartzite,1,1));
 		rc_recipe.put(210,new ItemStack(BlocksGT.Andesite,1,1));
-		rc_recipe.put(212,new ItemStack(BlocksGT.GraniteBlack,1,1));
-		rc_recipe.put(213,new ItemStack(BlocksGT.GraniteRed,1,1));
+		rc_recipe.put(212,new ItemStack(BlocksGT.GraniteRed,1,1));
+		rc_recipe.put(213,new ItemStack(BlocksGT.GraniteBlack,1,1));
 		rc_recipe.put(208,new ItemStack(BlocksGT.RockOres,1,2));
 		rc_recipe.put(209,new ItemStack(BlocksGT.RockOres,1,4));
 		rc_recipe.put(211,new ItemStack(BlocksGT.RockOres,1,0));
