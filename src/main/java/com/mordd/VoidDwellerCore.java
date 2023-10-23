@@ -16,13 +16,19 @@ import com.mordd.item.ItemMultiBlock;
 import com.mordd.item.MultiItem;
 import com.mordd.tileentity.GT_TileEntityLoader;
 import com.mordd.tileentity.TileEntityLoader;
+import com.mordd.util.Utils;
 
 import cpw.mods.fml.common.Mod;
+import cpw.mods.fml.common.registry.GameRegistry;
 import gregapi.block.multitileentity.MultiTileEntityRegistry;
+import gregapi.data.CS;
+import gregapi.data.MT;
+import gregapi.data.CS.ItemsGT;
 import gregapi.item.multiitem.MultiItemRandomWithCompat;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.config.Configuration;
 
@@ -49,7 +55,7 @@ public final class VoidDwellerCore extends gregapi.api.Abstract_Mod {
 	/** This is your Mods Name */
 	public static final String MOD_NAME = "Void Dweller Core"; // <-- TODO: you need to change this to the Name of your own Mod, and then remove this Comment after you did that.
 	/** This is your Mods Version */
-	public static final String VERSION = "0.2.0_0117";
+	public static final String VERSION = "0.2.0_011c";
 	/** Contains a ModData Object for ID and Name. Doesn't have to be changed. */
 	public static gregapi.code.ModData MOD_DATA = new gregapi.code.ModData(MOD_ID, MOD_NAME);
 	
@@ -104,6 +110,10 @@ public final class VoidDwellerCore extends gregapi.api.Abstract_Mod {
 	@Override
 	public void onModPostInit2(cpw.mods.fml.common.event.FMLPostInitializationEvent aEvent) {
 		// Insert your PostInit Code here and not above
+		Utils.clearMaterial(new ItemStack(ItemsGT.TOOLS,1,2000));
+		Utils.addMaterial(new ItemStack(ItemsGT.TOOLS,1,2000),MT.Ceramic,3*CS.U);
+		Item tile = GameRegistry.findItem("gregtech", "gt.multitileentity");
+		Utils.replaceMaterial(new ItemStack(tile,1,1039),MT.Ir,MT.NetherStar,1*CS.U);
 	}
 	
 	@Override

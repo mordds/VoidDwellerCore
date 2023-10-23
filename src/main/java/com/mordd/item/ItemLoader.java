@@ -13,6 +13,7 @@ import static gregapi.oredict.OreDictMaterialCondition.typemin;
 import com.mordd.util.Utils;
 
 import cpw.mods.fml.common.registry.GameRegistry;
+import gregapi.item.prefixitem.PrefixItem;
 import gregapi.oredict.OreDictMaterial;
 import gregapi.oredict.OreDictPrefix;
 
@@ -20,7 +21,7 @@ public class ItemLoader {
 	public static void loadItems() {
 		OreDictMaterial[] m = new OreDictMaterial[] {};
 		final gregapi.oredict.OreDictPrefix fluxCrystal = OreDictPrefix.createPrefix("fluxCrystal").setCategoryName("Fluid Crystal").setLocalPrefixName("Flux Crystal").setLocalItemName("", "Flux Crystal").setMaterialStats(2*U).setStacksize(64);
-		new gregapi.item.prefixitem.PrefixItem("vd_core", "vd_core", "vd_core.item.fluxCrystal", fluxCrystal, Utils.fluxCrystalMaterials.toArray(m));
+		PrefixItem crystal = new gregapi.item.prefixitem.PrefixItem("vd_core", "vd_core", "vd_core.item.fluxCrystal", fluxCrystal, Utils.fluxCrystalMaterials.toArray(m));
 		MultiItem item = new MultiItem();
 		loadMultiItem();
 		GameRegistry.registerItem(item, "multiitem");
